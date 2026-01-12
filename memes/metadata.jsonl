@@ -39,7 +39,7 @@
 {"id":"look_at_him","file":"lookAtHim.jpeg","tags":["mocking","miserable"],"triggers":["look at him","bro is finished","he fell off","pathetic","thats sad"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"marry_me_dog","file":"marry_me_dog.jpeg","tags":["envy","pretty","rizz"],"triggers":["marry me","be mine","i love you","you're cute","youre cute"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"menacing_dog","file":"menacing_dog.jpeg","tags":["threaten","warning"],"triggers":["dont test me","don't test me","back off","watch it","last warning"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
-{"id":"grandpa_knife","file":"menacing_knife_grandpa.jpg","tags":["warning","threaten","anger"],"triggers":["im going touch you","i'm going touch you","i will touch you"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
+{"id":"grandpa_knife","file":"menacing_knife_grandpa.jpeg","tags":["warning","threaten","anger"],"triggers":["im going touch you","i'm going touch you","i will touch you"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"ok_tlof","file":"ok_TLOF.jpeg","tags":["ok","boredom"],"triggers":["ok","okay","sure","alright","fine"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"oof_creed","file":"oof_creed.jpeg","tags":["hype","approve"],"triggers":["oof","damn","that hurts","bruh","no chill"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"oopsi_ppo","file":"oopsi_ppo.jpeg","tags":["oopsi","excuse"],"triggers":["oops","my bad","sorry","i messed up","i fucked up"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
