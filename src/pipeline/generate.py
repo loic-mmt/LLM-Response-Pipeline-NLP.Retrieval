@@ -37,4 +37,37 @@ def rule_match(prompt_norm: str, memes):
 def topk_by_embeddings(prompt_norm: str, k: int =  TOPK):
     emb = np.load("indexes/memes_emb.npy")
     ids = json.loads(Path("indexes/meme_ids.json").read_text(encoding="utf-8"))
+
+    model = SentenceTransformer(EMB_MODEL)
+    q = model.encode([prompt_norm], normalize_embeddings=True)[0]
+    scores = emb @ q
+    idxs = np.argsort(-scores)[:k]
+    return [(ids[i], float(scores[i])) for i in idxs]
+
+
+def caption_with_llm(client: OllamaClient, user_prompt: str, meme: dict) -> str:
+    tags = meme.get("tags", [])
+    prompt = f"""
+Return ONLY JSON: {{"caption":"..."}}.
+
+Rules:
+- English unless the user prompt is clearly French.
+- Max 80 characters.
+- No emojis.
+- Match the vibe tags: {tags}
+- Make it meme-like: short, punchy.
+
+USER_PROMPT: {user_prompt}
+"""
+    raw = client.complete(prompt, temperature=0.2, max_tokens=160).strip()
+
+    try:
+        s = raw[raw.find("{"):raw.rfind("}")+1]
+        obj = json.loads(s)
+        cap = (obj.get("caption") or "").strip()
+        if not cap:
+            return "..."
+        return cap[:80]
+    except Exception:
+        return "..."
     
