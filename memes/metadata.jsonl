@@ -8,7 +8,7 @@
 {"id":"wow_po","file":"WOW_po.jpeg","tags":["envy","pretty"],"triggers":["wow","so beautiful","damn","look at that","must be nice"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"akward_pinguin","file":"akward_pinguin.jpeg","tags":["cringe","apologize","excuse","callout","akward"],"triggers":["awkward","that was awkward","uhh","my bad","sorry"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"angry_bob_razowsky","file":"angry_bobRazowsky.jpeg","tags":["angry","reject"],"triggers":["im angry","i'm angry","pissed","shut up","enough"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
-{"id":"angry_cat","file":"angry_cat.jpeg","tags":["angry","frustration","cat","anxiety"],"triggers":["im pissed","i'm pissed","so annoying","why me","this is stupid"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
+{"id":"angry_cat","file":"angry_cat.jpeg","tags":["angry","frustration","anxiety"],"triggers":["im pissed","i'm pissed","so annoying","why me","this is stupid"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"blaz_bob_razowsky","file":"blaz\u00e9_bobRazowsky.jpeg","tags":["reject"],"triggers":["meh","whatever","dont care","i don't care","nope"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"blaz_po","file":"blaz\u00e9_po.jpeg","tags":["boredom"],"triggers":["meh","boring","im bored","i'm bored","whatever"],"text":{"mode":"bottom","font_size":52,"stroke":4}}
 {"id":"bloodyeyes_spongebob","file":"bloodyeyes_spongebob.jpeg","tags":["disgust","shock"],"triggers":["wtf","what the hell","thats disgusting","that's disgusting","i cant unsee"],"text":{"mode":"bottom","font_size":52,"stroke":4}}

@@ -68,13 +68,14 @@ Rules:
 - English unless the user prompt is clearly French.
 - Max 80 characters.
 - No emojis.
+- Respond to the prompt.
 - Match the vibe tags: {tags}
 - Don't integrate the tags inside the caption.
 - Make it meme-like: short, punchy.
 
 USER_PROMPT: {user_prompt}
 """
-    raw = client.complete(prompt, temperature=0.2, max_tokens=160).strip()
+    raw = client.complete(prompt, temperature=0.1, max_tokens=160).strip()
 
     try:
         s = raw[raw.find("{") : raw.rfind("}") + 1]
