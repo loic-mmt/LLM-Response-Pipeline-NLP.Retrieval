@@ -11,7 +11,6 @@ Options
 	3.	Hybride
 	•	templates pour structure + LLM pour reformulation
 
-Important : impose des règles :
+Important : imposer des règles :
 	•	longueur max
-	•	pas de contenu interdit (violence, harcèlement, etc.)
 	•	pas de “@”, pas de hashtags, pas de mentions, etc.

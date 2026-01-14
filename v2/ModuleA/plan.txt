@@ -8,4 +8,4 @@ Approche pragmatique
 	•	ou même un modèle TF-IDF + logistic regression au début (rapide, efficace).
 	•	Output = multi-label sur ton dictionnaire de tags.
 
-Pourquoi : c’est stable, contrôlable, rapide, et tu peux imposer ton dictionnaire sans “hallucinations”.
+Pourquoi : c’est stable, contrôlable, rapide, et on peux imposer ton dictionnaire sans “hallucinations”.
