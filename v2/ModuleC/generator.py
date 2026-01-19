@@ -18,24 +18,31 @@ class GenerationConstraints:
 
 def load_templates(path: str) -> list[str]:
     """Load response templates with slots."""
-    # TODO: Suggested path:
-    # 1) Accept either a JSON array or a newline-delimited text file.
-    # 2) Normalize whitespace and drop empty lines.
-    # 3) Validate templates contain expected slots (e.g., {tone}, {acts}).
     templates_path = Path(path)
-    data = json.loads(templates_path.read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        raise ValueError("policy rules file must contain a JSON array")
-    data = normalize_token((d) for d in data)
-    if "tone" not in data :
-        raise ValueError("Template must contain the tone of response.")
-    if "acts" not in data :
-        raise ValueError("Template must contain the acts of response.")
-    if "intensity" not in data :
-        raise ValueError("Template must contain the intensity of response.")
-    if "format" not in data :
-        raise ValueError("Template must contain the format of response.")
-    return data
+    raw = templates_path.read_text(encoding="utf-8")
+
+    # Accept JSON list or newline-delimited text.
+    try:
+        data = json.loads(raw)
+        if not isinstance(data, list):
+            raise ValueError("templates file must contain a JSON array")
+        candidates = [str(item) for item in data]
+    except json.JSONDecodeError:
+        candidates = [line.strip() for line in raw.splitlines()]
+
+    # Normalize whitespace and drop empty entries.
+    templates = [normalize_token(t) for t in candidates if t.strip()]
+    if not templates:
+        raise ValueError("no templates found")
+
+    # Validate required slots at least once to ensure compatibility.
+    required_slots = ("{tone}", "{acts}", "{intensity}", "{format}")
+    for slot in required_slots:
+        if not any(slot in template for template in templates):
+            raise ValueError(f"at least one template must contain {slot}")
+
+    return templates
+
 
 def render_from_template(
     prompt: str,
