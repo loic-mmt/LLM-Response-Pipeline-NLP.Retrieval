@@ -4,11 +4,11 @@ from dataclasses import dataclass
 from typing import Iterable, Sequence
 import json
 from pathlib import Path
-
+import re
 
 @dataclass(frozen=True)
 class ReactionPlan:
-    tone: list[str]
+    tone: str
     acts: list[str]
     intensity: str
     format: str
@@ -118,12 +118,25 @@ def derive_reaction_plan(
     return ReactionPlan(tone=tone, acts=acts, intensity=intensity, format=fmt)
 
 
+def normalize_token(text: str) -> str:
+    """Normalize a tag token for consistent output."""
+    text = text.lower().strip()
+    text = re.sub(r"[^\w\s']", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    return text
+
 
 def reaction_plan_to_tags(plan: ReactionPlan) -> list[str]:
     """Flatten a reaction plan into response tags."""
-    # TODO: Suggested path:
-    # 1) Standardize output tags, e.g.:
-    #    ["tone:sarcastic", "act:roast", "intensity:high", "format:short"].
-    # 2) Keep acts as multiple entries.
-    # 3) Use this output to drive Module C and Module D.
-    raise NotImplementedError("TODO: implement tag flattening")
+    # Normalize each field without mutating the frozen dataclass.
+    tone = normalize_token(plan.tone)
+    acts = [normalize_token(act) for act in plan.acts]
+    intensity = normalize_token(plan.intensity)
+    fmt = normalize_token(plan.format)
+
+    # Flatten into tag strings consumed by Module C/D.
+    tags = [f"tone:{t}" for t in tone]
+    tags.extend(f"act:{act}" for act in acts)
+    tags.append(f"intensity:{intensity}")
+    tags.append(f"format:{fmt}")
+    return tags
