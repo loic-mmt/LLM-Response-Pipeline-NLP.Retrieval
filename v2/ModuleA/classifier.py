@@ -41,7 +41,6 @@ class GroupedClassifier:
 
 def load_tag_dictionary(path: str) -> list[str]:
     """Load the allowed tag dictionary from disk."""
-    # TODO: Parse tags.jsonl or a similar source and return a stable tag list.
     items: list[str] = []
     seen: set[str] = set()
     tag_path = Path(path)
@@ -88,7 +87,6 @@ def load_tag_groups(path: str) -> dict[str, list[str]]:
 
 def normalize_prompt(prompt: str) -> str:
     """Normalize prompt text before vectorization or inference."""
-    # TODO: Add consistent normalization (lowercasing, punctuation cleanup).
     prompt = prompt.lower().strip()
     prompt = re.sub(r"[^\w\s']", " ", prompt)
     prompt = re.sub(r"\s+", " ", prompt)
