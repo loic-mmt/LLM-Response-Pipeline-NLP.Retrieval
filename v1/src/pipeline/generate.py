@@ -27,7 +27,8 @@ def normalize(t: str) -> str:
 
 def load_memes():
     memes = []
-    with open("memes/metadata.jsonl", "r", encoding="utf-8") as f:
+    metadata_path = PROJECT_ROOT / "memes" / "metadata.jsonl"
+    with metadata_path.open("r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if line:
@@ -49,8 +50,8 @@ def rule_match(prompt_norm: str, memes):
 
 
 def topk_by_embeddings(prompt_norm: str, k: int = TOPK):
-    emb = np.load("indexes/meme_emb.npy")
-    ids = json.loads(Path("indexes/meme_ids.json").read_text(encoding="utf-8"))
+    emb = np.load(PROJECT_ROOT / "indexes" / "meme_emb.npy")
+    ids = json.loads((PROJECT_ROOT / "indexes" / "meme_ids.json").read_text(encoding="utf-8"))
 
     model = SentenceTransformer(EMB_MODEL)
     q = model.encode([prompt_norm], normalize_embeddings=True)[0]
@@ -111,16 +112,21 @@ def generate(prompt: str, out_path: str = "outputs/out.png", default_id: str = "
     if not img_path.exists():
         raise FileNotFoundError(f"Image not found: {img_path}")
 
+    out_path_value = Path(out_path)
+    if not out_path_value.is_absolute():
+        out_path_value = PROJECT_ROOT / out_path_value
+    out_path_value.parent.mkdir(parents=True, exist_ok=True)
+
     text_cfg = meme.get("text", {})
     draw_bottom_caption(
         str(img_path),
         caption,
-        out_path,
+        str(out_path_value),
         font_size=text_cfg.get("font_size", 32),
         stroke=text_cfg.get("stroke", 4),
     )
 
-    return {"meme_id": meme["id"], "caption": caption, "file": out_path}
+    return {"meme_id": meme["id"], "caption": caption, "file": str(out_path_value)}
 
 
 if __name__ == "__main__":

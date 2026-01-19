@@ -1,9 +1,11 @@
 import json
-import numpy as np
 from pathlib import Path
+
+import numpy as np
 from sentence_transformers import SentenceTransformer
 
 EMB_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 def load_jsonl(path: Path):
     items = []
@@ -21,8 +23,8 @@ def profile_text(m: dict) -> str:
     return " | ".join(tags + triggers)
 
 def main():
-    meta_path = Path("memes/metadata.jsonl")
-    out_dir = Path("indexes")
+    meta_path = PROJECT_ROOT / "memes" / "metadata.jsonl"
+    out_dir = PROJECT_ROOT / "indexes"
     out_dir.mkdir(exist_ok=True)
 
     memes = load_jsonl(meta_path)
