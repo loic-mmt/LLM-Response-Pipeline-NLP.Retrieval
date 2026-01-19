@@ -8,7 +8,7 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class ReactionPlan:
-    tone: str
+    tone: list[str]
     acts: list[str]
     intensity: str
     format: str
@@ -93,14 +93,40 @@ def score_rules(prompt_tags: Sequence[str], rules: Iterable[dict]) -> list[tuple
     return scored
 
 
-def derive_reaction_plan(prompt_tags: Sequence[str], rules: Iterable[dict]) -> ReactionPlan:
+def derive_reaction_plan(
+        prompt_tags: Sequence[str],
+        rules: Iterable[dict],
+        threshold: float = 0.5
+)-> ReactionPlan:
     """Derive reaction tags (tone/acts/intensity/format) from prompt tags."""
     # TODO: Suggested path:
     # 1) Call score_rules and take top-1 rule if score >= threshold.
     # 2) If no strong match, fall back to a default neutral plan.
     # 3) Optionally merge top-N rules (e.g., combine acts) with precedence.
     # 4) Return ReactionPlan(tone, acts, intensity, format).
-    raise NotImplementedError("TODO: implement reaction plan selection")
+    x = score_rules(prompt_tags=prompt_tags, rules=rules)
+    neutral_plan = (
+            {
+                "when": "",
+                "tone": "neutra",
+                "acts": "agree",
+                "intensity": "medium",
+                "format": "short",
+                "weight": 1.0,      # --> return a "OK" with a thumbs up meme
+            }
+        )
+    if not x:
+        return ValueError("scores cannot be empty")
+    topK = max(x['weight'])
+    if topK['weight'] < threshold: return neutral_plan
+  
+    if len(x) > 10 and all(x['weight']) > threshold :
+        merging = True
+    if merging == True:
+        merged_tags = " | ".join(x[0] + x[1] + x[2])
+        
+    return ReactionPlan
+
 
 
 def reaction_plan_to_tags(plan: ReactionPlan) -> list[str]:
