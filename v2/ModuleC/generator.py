@@ -50,18 +50,28 @@ def render_from_template(
     template: str,
 ) -> str:
     """Render a response using a template and reaction plan."""
-    # TODO: Suggested path:
-    # 1) Build a slot dict with: prompt, tone, intensity, format, acts.
-    # 2) Convert acts list to a readable string:
-    #    - if empty -> "acknowledge"
-    #    - if one -> that act
-    #    - if many -> "act1 + act2 + act3"
-    # 3) Normalize all slot values (lowercase, trim).
-    # 4) Render with template.format_map(slots).
-    # 5) If a slot is missing, either:
-    #    - fill with "" or a default value, or
-    #    - raise a ValueError with the missing key.
-    raise NotImplementedError("TODO: implement template rendering")
+    # Build the "acts" string based on how many acts we have.
+    if not reaction_plan.acts:
+        acts_text = "acknowledge"
+    elif len(reaction_plan.acts) == 1:
+        acts_text = reaction_plan.acts[0]
+    else:
+        acts_text = " + ".join(reaction_plan.acts)
+
+    # Prepare slots using the reaction plan (template is a string).
+    slots = {
+        "prompt": normalize_token(prompt),
+        "tone": normalize_token(reaction_plan.tone),
+        "acts": normalize_token(acts_text),
+        "intensity": normalize_token(reaction_plan.intensity),
+        "format": normalize_token(reaction_plan.format),
+    }
+
+    try:
+        return template.format_map(slots)
+    except KeyError as exc:
+        raise ValueError(f"template is missing slot: {exc}") from exc
+    
 
 
 def apply_constraints(text: str, constraints: GenerationConstraints) -> str:
