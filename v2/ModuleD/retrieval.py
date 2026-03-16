@@ -184,9 +184,13 @@ def rank_templates(
 
 def select_template(candidates: Sequence[MemeCandidate]) -> MemeTemplate:
     """Select the best meme template from ranked candidates."""
-    # TODO(1): Validate non-empty `candidates`; raise ValueError if empty.
-    # TODO(2): Assume ranked input and pick index 0 as baseline behavior.
-    # TODO(3): If input may be unsorted, sort with same rule as `rank_templates`.
-    # TODO(4): Add explicit tie-break policy (score, then meme_id).
-    # TODO(5): Return the selected `MemeTemplate`.
-    raise NotImplementedError("TODO: implement select_template")
+    if candidates is None:
+        raise ValueError("candidates cannot be None")
+
+    candidate_list = list(candidates)
+    if not candidate_list:
+        raise ValueError("candidates cannot be empty")
+
+    # Defensive sort in case callers pass an unsorted list.
+    candidate_list.sort(key=lambda c: (-c.score, c.template.meme_id))
+    return candidate_list[0].template
