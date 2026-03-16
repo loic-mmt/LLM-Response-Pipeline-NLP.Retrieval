@@ -168,13 +168,18 @@ def rank_templates(
     top_k: int = 5,
 ) -> list[MemeCandidate]:
     """Rank templates and return the top candidates."""
-    # TODO(1): Validate `top_k` (> 0), otherwise raise ValueError.
-    # TODO(2): Score every template using `score_template(...)`.
-    # TODO(3): Convert to `MemeCandidate(template, score)` objects.
-    # TODO(4): Sort by descending score; add deterministic tie-breakers
-    #   (ex: meme_id ascending) for reproducible results.
-    # TODO(5): Return first `top_k` candidates (or fewer if not enough items).
-    raise NotImplementedError("TODO: implement rank_templates")
+    if top_k <= 0:
+        raise ValueError("top_k must be > 0")
+
+    template_list = list(templates)
+    candidates: list[MemeCandidate] = []
+    for template in template_list:
+        score = score_template(template, prompt_tags, response_tags)
+        candidates.append(MemeCandidate(template=template, score=score))
+
+    # Deterministic ordering: highest score first, then meme_id ascending.
+    candidates.sort(key=lambda c: (-c.score, c.template.meme_id))
+    return candidates[:top_k]
 
 
 def select_template(candidates: Sequence[MemeCandidate]) -> MemeTemplate:
