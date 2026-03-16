@@ -135,7 +135,7 @@ def reaction_plan_to_tags(plan: ReactionPlan) -> list[str]:
     fmt = normalize_token(plan.format)
 
     # Flatten into tag strings consumed by Module C/D.
-    tags = [f"tone:{t}" for t in tone]
+    tags = [f"tone:{tone}"]
     tags.extend(f"act:{act}" for act in acts)
     tags.append(f"intensity:{intensity}")
     tags.append(f"format:{fmt}")

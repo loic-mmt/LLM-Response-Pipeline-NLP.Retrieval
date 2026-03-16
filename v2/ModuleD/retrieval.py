@@ -102,24 +102,63 @@ def load_meme_catalog(path: str) -> list[MemeTemplate]:
     return templates
 
 
+
+
+def _normalize_tag_list(values: Sequence[str] | None) -> list[str]:
+    """Normalize and deduplicate tag lists while preserving order."""
+    if values is None:
+        return []
+
+    normalized: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if not isinstance(value, str):
+            continue
+        raw_value = value.strip()
+
+        # Keep both the full token and the suffix if a prefix exists.
+        candidates = [raw_value]
+        if ":" in raw_value:
+            _, suffix = raw_value.split(":", 1)
+            candidates.append(suffix)
+
+        for candidate in candidates:
+            token = normalize_token(candidate)
+            if not token or token in seen:
+                continue
+            seen.add(token)
+            normalized.append(token)
+    return normalized
+
+
 def score_template(
     template: MemeTemplate,
     prompt_tags: Sequence[str],
     response_tags: Sequence[str],
 ) -> float:
     """Score a single template against prompt and response tags."""
-    # TODO(1): Normalize `prompt_tags`, `response_tags`, and `template.tags`
-    #   with the same policy (lowercase + trim + dedupe).
-    # TODO(2): Compute overlap for prompt side and response side separately.
-    #   Example baseline:
-    #   - prompt_overlap = |template ∩ prompt| / max(1, |prompt|)
-    #   - response_overlap = |template ∩ response| / max(1, |response|)
-    # TODO(3): Combine with explicit weights (ex: response more important).
-    #   Example: score = 0.4 * prompt_overlap + 0.6 * response_overlap
-    # TODO(4): Add optional bonuses/penalties from `template.constraints`
-    #   (format compatibility, text length constraints, etc.).
-    # TODO(5): Clamp score to [0.0, 1.0] and return a float.
-    raise NotImplementedError("TODO: implement score_template")
+    if template is None:
+        raise ValueError("template cannot be None")
+
+    template_norm = _normalize_tag_list(template.tags)
+    prompt_norm = _normalize_tag_list(prompt_tags)
+    response_norm = _normalize_tag_list(response_tags)
+
+    template_set = set(template_norm)
+    prompt_set = set(prompt_norm)
+    response_set = set(response_norm)
+
+    prompt_overlap = len(template_set.intersection(prompt_set)) / max(1, len(prompt_set))
+    response_overlap = len(template_set.intersection(response_set)) / max(1, len(response_set))
+
+    # Response tags are more important than prompt tags for final meme selection.
+    score = (0.4 * prompt_overlap) + (0.6 * response_overlap)
+
+    if score < 0.0:
+        return 0.0
+    if score > 1.0:
+        return 1.0
+    return float(score)
 
 
 def rank_templates(

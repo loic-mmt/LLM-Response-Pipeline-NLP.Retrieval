@@ -2,3 +2,4 @@
 /v2/ModuleA/__pycache__
 __pycache__/
 *.py[cod]
+v2/ModuleB/__pycache__
