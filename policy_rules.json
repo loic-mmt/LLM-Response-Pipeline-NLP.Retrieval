@@ -1,0 +1,114 @@
+[
+  {
+    "when": ["sad", "depressed", "guilty", "apologetic"],
+    "tone": "supportive",
+    "acts": ["reassure", "empathize"],
+    "intensity": "low",
+    "format": "short",
+    "weight": 1.2
+  },
+  {
+    "when": ["embarrassed", "awkward", "anxious"],
+    "tone": "friendly",
+    "acts": ["comfort", "encourage"],
+    "intensity": "low",
+    "format": "short",
+    "weight": 1.1
+  },
+  {
+    "when": ["panic", "shocked"],
+    "tone": "supportive",
+    "acts": ["reassure", "clarify"],
+    "intensity": "medium",
+    "format": "2-sentences",
+    "weight": 1.2
+  },
+  {
+    "when": ["angry", "frustrated", "annoyed"],
+    "tone": "deadpan",
+    "acts": ["set_boundary", "dismiss"],
+    "intensity": "medium",
+    "format": "short",
+    "weight": 1.0
+  },
+  {
+    "when": ["skeptical", "suspicious"],
+    "tone": "serious",
+    "acts": ["challenge", "ask_question"],
+    "intensity": "low",
+    "format": "2-sentences",
+    "weight": 1.0
+  },
+  {
+    "when": ["confident", "proud", "celebratory"],
+    "tone": "hype",
+    "acts": ["celebrate", "hype_up"],
+    "intensity": "high",
+    "format": "setup+punchline",
+    "weight": 1.1
+  },
+  {
+    "when": ["excited", "hype"],
+    "tone": "excited",
+    "acts": ["celebrate", "encourage"],
+    "intensity": "high",
+    "format": "short",
+    "weight": 1.0
+  },
+  {
+    "when": ["sarcastic", "ironic", "cheeky"],
+    "tone": "playful",
+    "acts": ["tease", "mock"],
+    "intensity": "medium",
+    "format": "setup+punchline",
+    "weight": 1.0
+  },
+  {
+    "when": ["informal", "playful"],
+    "tone": "friendly",
+    "acts": ["acknowledge", "tease"],
+    "intensity": "low",
+    "format": "short",
+    "weight": 0.9
+  },
+  {
+    "when": ["serious", "professional"],
+    "tone": "professional",
+    "acts": ["summarize", "advise"],
+    "intensity": "low",
+    "format": "2-sentences",
+    "weight": 1.0
+  },
+  {
+    "when": ["romantic", "flirty"],
+    "tone": "flirty",
+    "acts": ["compliment", "invite"],
+    "intensity": "medium",
+    "format": "short",
+    "weight": 1.0
+  },
+  {
+    "when": ["disappointed", "sad"],
+    "tone": "encouraging",
+    "acts": ["motivate", "encourage"],
+    "intensity": "medium",
+    "format": "short",
+    "weight": 1.1
+  },
+  {
+    "when": ["curious"],
+    "tone": "friendly",
+    "acts": ["ask_question", "explain"],
+    "intensity": "low",
+    "format": "2-sentences",
+    "weight": 0.9
+  },
+  {
+    "when": ["neutral"],
+    "tone": "neutral",
+    "acts": ["acknowledge"],
+    "intensity": "low",
+    "format": "short",
+    "weight": 0.8
+  }
+]

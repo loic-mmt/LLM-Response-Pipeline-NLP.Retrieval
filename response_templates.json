@@ -1,0 +1,18 @@
+[
+  "{tone} mode, {acts}: {prompt}",
+  "I see it. {tone} + {acts}, intensity {intensity}, format {format}.",
+  "{prompt} -> {tone} reaction: {acts}.",
+  "Quick take ({format}, {intensity}): {acts}.",
+  "{tone} answer: {acts}.",
+  "Same situation, different energy: {tone}, {acts}.",
+  "If we keep it {format}: {acts} in a {tone} way.",
+  "{tone} vibe check: {acts}.",
+  "Given this prompt, I go {tone} and {acts}.",
+  "{acts} first, then move on. Tone: {tone}.",
+  "Intensity {intensity}, style {format}, action {acts}.",
+  "{prompt} but with a {tone} twist: {acts}.",
+  "One-liner setup: {tone}. Punchline move: {acts}.",
+  "Response profile -> tone={tone}, acts={acts}, intensity={intensity}, format={format}.",
+  "When it sounds like this, react {tone} and {acts}.",
+  "{format} reply, {intensity} energy: {acts} with {tone} tone."
+]
